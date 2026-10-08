@@ -1,0 +1,46 @@
+name: Build unsigned IPA
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  ipa:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build unsigned iOS app
+        run: |
+          set -euo pipefail
+          xcodebuild -project LicenseGate.xcodeproj \
+            -scheme LicenseGate \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            DEVELOPMENT_TEAM="" \
+            -derivedDataPath build
+          APP=$(find build/Build/Products -name 'LicenseGate.app' -type d | head -n 1)
+          test -n "$APP"
+          rm -rf Payload
+          mkdir Payload
+          cp -R "$APP" Payload/
+          ditto -c -k --keepParent Payload LicenseGate-unsigned.ipa
+
+      - name: Publish IPA
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ios-v1.0.${{ github.run_number }}
+          name: LicenseGate IPA ${{ github.run_number }}
+          files: LicenseGate-unsigned.ipa
+          body: |
+            未签名 IPA。用全能签导入后，选你的证书签名再安装。
+            首次验证码 1234，可使用 30 天。
+            到期后输入 2234 永久解锁，之后不再弹窗。
