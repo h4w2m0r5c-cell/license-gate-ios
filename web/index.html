@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="授权验证" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <title>授权验证</title>
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #0c0f14; color: #f3f5f7; }
+    main { max-width: 420px; margin: 0 auto; padding: 72px 22px; }
+    h1 { font-size: 28px; margin: 0 0 12px; }
+    .card { background: #151a22; border-radius: 18px; padding: 16px; color: #d7dee6; line-height: 1.5; }
+    .overlay { position: fixed; inset: 0; background: rgba(6,8,12,.78); display: flex; align-items: center; justify-content: center; padding: 24px; }
+    .sheet { width: min(100%, 360px); background: #14181f; border-radius: 22px; padding: 24px; }
+    input { width: 100%; margin: 14px 0 8px; padding: 14px; border-radius: 12px; border: 1px solid rgba(255,255,255,.12); background: #0d1117; color: white; font-size: 20px; letter-spacing: .28em; text-align: center; }
+    button { width: 100%; margin-top: 10px; border: 0; border-radius: 12px; padding: 14px; background: #2f86ff; color: white; font-size: 16px; font-weight: 650; }
+    .err { color: #ff8d8d; min-height: 18px; font-size: 13px; }
+    .hint { color: #aeb6c0; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>应用已解锁</h1>
+    <div class="card" id="status">检查中…</div>
+  </main>
+  <div class="overlay" id="gate" hidden>
+    <div class="sheet">
+      <h2>输入验证码开始使用</h2>
+      <p class="hint" id="hint"></p>
+      <input id="code" inputmode="numeric" maxlength="8" placeholder="验证码" />
+      <div class="err" id="err"></div>
+      <button id="ok" type="button">确认</button>
+    </div>
+  </div>
+  <script>
+    var KEY = "license_gate_ios_v1";
+    var TRIAL = 30 * 24 * 60 * 60 * 1000;
+    function load() { try { return JSON.parse(localStorage.getItem(KEY) || "null"); } catch (e) { return null; } }
+    function save(v) { localStorage.setItem(KEY, JSON.stringify(v)); }
+    function phase(state) {
+      if (!state) return "trial";
+      if (state.status === "permanent") return "done";
+      if (state.status === "trial" && Date.now() < state.expiresAt) return "active";
+      return "renew";
+    }
+    function render() {
+      var state = load();
+      var p = phase(state);
+      var el = document.getElementById("status");
+      if (p === "done") el.textContent = "已永久解锁，后续无需再输入验证码。";
+      else if (p === "active") el.textContent = "试用中，到期时间：" + new Date(state.expiresAt).toLocaleString("zh-CN", { hour12: false }) + "。到期后需输入 2234。";
+      else el.textContent = "未授权";
+      var gate = document.getElementById("gate");
+      if (p === "trial" || p === "renew") {
+        gate.hidden = false;
+        document.getElementById("hint").textContent = p === "renew" ? "试用已到期。输入 2234 后永久解锁，之后不再弹窗。" : "输入 1234 可使用 30 天。到期后需要 2234 永久解锁。";
+      } else gate.hidden = true;
+    }
+    document.getElementById("ok").onclick = function () {
+      var state = load();
+      var p = phase(state);
+      var code = document.getElementById("code").value.trim();
+      var err = document.getElementById("err");
+      if (p === "trial" && code === "1234") {
+        save({ status: "trial", expiresAt: Date.now() + TRIAL });
+        err.textContent = "";
+        render();
+        return;
+      }
+      if (p === "renew" && code === "2234") {
+        save({ status: "permanent" });
+        err.textContent = "";
+        render();
+        return;
+      }
+      err.textContent = "验证码不正确";
+    };
+    render();
+  </script>
+</body>
+</html>

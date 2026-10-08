@@ -1,0 +1,8 @@
+{
+  "name": "授权验证",
+  "short_name": "授权验证",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0c0f14",
+  "theme_color": "#0c0f14"
+}

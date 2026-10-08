@@ -1,0 +1,27 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+		A10000000000000000000001 /* LicenseGateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseGateApp.swift; sourceTree = "<group>"; };
+		A10000000000000000000002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		A10000000000000000000003 /* LicenseGate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LicenseGate.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A10000000000000000000010 /* LicenseGate */ = {isa = PBXGroup; children = (A10000000000000000000001, A10000000000000000000002); path = LicenseGate; sourceTree = "<group>"; };
+		A10000000000000000000011 = {isa = PBXGroup; children = (A10000000000000000000010, A10000000000000000000012); sourceTree = "<group>"; };
+		A10000000000000000000012 /* Products */ = {isa = PBXGroup; children = (A10000000000000000000003); name = Products; sourceTree = "<group>"; };
+		A10000000000000000000020 /* LicenseGate */ = {isa = PBXNativeTarget; buildConfigurationList = A10000000000000000000040; buildPhases = (A10000000000000000000021); buildRules = (); dependencies = (); name = LicenseGate; productName = LicenseGate; productReference = A10000000000000000000003; productType = "com.apple.product-type.application"; };
+		A10000000000000000000021 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (A10000000000000000000031, A10000000000000000000032); runOnlyForDeploymentPostprocessing = 0; };
+		A10000000000000000000031 /* LicenseGateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000001; };
+		A10000000000000000000032 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000002; };
+		A10000000000000000000050 /* Project object */ = {isa = PBXProject; attributes = {LastUpgradeCheck = 1600; }; buildConfigurationList = A10000000000000000000041; compatibilityVersion = "Xcode 14.0"; developmentRegion = zh-Hans; hasScannedForEncodings = 0; knownRegions = (en, "zh-Hans", Base); mainGroup = A10000000000000000000011; productRefGroup = A10000000000000000000012; projectDirPath = ""; projectRoot = ""; targets = (A10000000000000000000020); };
+		A10000000000000000000040 /* Build configuration list for PBXNativeTarget */ = {isa = XCConfigurationList; buildConfigurations = (A10000000000000000000042, A10000000000000000000043); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		A10000000000000000000041 /* Build configuration list for PBXProject */ = {isa = XCConfigurationList; buildConfigurations = (A10000000000000000000044, A10000000000000000000045); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		A10000000000000000000042 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {CODE_SIGN_STYLE = Automatic; CURRENT_PROJECT_VERSION = 1; GENERATE_INFOPLIST_FILE = YES; INFOPLIST_KEY_CFBundleDisplayName = "授权验证"; INFOPLIST_KEY_UILaunchScreen_Generation = YES; INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait; IPHONEOS_DEPLOYMENT_TARGET = 16.0; MARKETING_VERSION = 1.0; PRODUCT_BUNDLE_IDENTIFIER = com.licensegate.ios; PRODUCT_NAME = "$(TARGET_NAME)"; SDKROOT = iphoneos; SWIFT_VERSION = 5.0; TARGETED_DEVICE_FAMILY = 1; }; name = Debug; };
+		A10000000000000000000043 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {CODE_SIGN_STYLE = Automatic; CURRENT_PROJECT_VERSION = 1; GENERATE_INFOPLIST_FILE = YES; INFOPLIST_KEY_CFBundleDisplayName = "授权验证"; INFOPLIST_KEY_UILaunchScreen_Generation = YES; INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait; IPHONEOS_DEPLOYMENT_TARGET = 16.0; MARKETING_VERSION = 1.0; PRODUCT_BUNDLE_IDENTIFIER = com.licensegate.ios; PRODUCT_NAME = "$(TARGET_NAME)"; SDKROOT = iphoneos; SWIFT_VERSION = 5.0; TARGETED_DEVICE_FAMILY = 1; }; name = Release; };
+		A10000000000000000000044 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {ALWAYS_SEARCH_USER_PATHS = NO; CLANG_ENABLE_MODULES = YES; COPY_PHASE_STRIP = NO; DEBUG_INFORMATION_FORMAT = dwarf; GCC_DYNAMIC_NO_PIC = NO; IPHONEOS_DEPLOYMENT_TARGET = 16.0; ONLY_ACTIVE_ARCH = YES; SDKROOT = iphoneos; SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG; SWIFT_OPTIMIZATION_LEVEL = "-Onone"; }; name = Debug; };
+		A10000000000000000000045 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {ALWAYS_SEARCH_USER_PATHS = NO; CLANG_ENABLE_MODULES = YES; COPY_PHASE_STRIP = NO; DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym"; IPHONEOS_DEPLOYMENT_TARGET = 16.0; SDKROOT = iphoneos; SWIFT_COMPILATION_MODE = wholemodule; VALIDATE_PRODUCT = YES; }; name = Release; };
+	};
+	rootObject = A10000000000000000000050;
+}
